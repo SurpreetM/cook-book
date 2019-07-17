@@ -50,17 +50,10 @@ class RecipeController < ApplicationController
       end
     end
 
-    #this is not working
     delete "/recipes/:id/delete" do
       @recipe = Recipe.find_by_id(params[:id])
       @recipe.delete
       redirect to "/recipes"
     end
-
-    post '/recipes/1/delete' do
-    "Hello World"
-    end
-
-
 
 end
