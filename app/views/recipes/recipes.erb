@@ -5,7 +5,7 @@
 <h2> All Recipes </h2>
 <ol>
 <% Recipe.all.each do |recipe| %>
-  <li><a href="/recipe/<%=recipe.id%>"><%= recipe.name %></a>
+  <li><a href="/recipes/<%=recipe.id%>"><%= recipe.name %></a>
   <%end%>
 </ol>
 <br>
@@ -13,7 +13,7 @@
 <h2> Your Recipes </h2>
 <ol>
 <% current_user.recipes.each do |recipe| %>
-  <li><a href="/recipe/<%=recipe.id%>"><%= recipe.name %></a>
+  <li><a href="/recipes/<%=recipe.id%>"><%= recipe.name %></a>
   <%end%>
 </ol>
 <br>

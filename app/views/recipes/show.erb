@@ -7,6 +7,14 @@
 <%= @recipe.instructions %>
 
 <br>
-<h3> <a href="/recipe/<%=@recipe.id%>/edit"> Edit </a> <h3>
+<h3> <a href="/recipes/<%=@recipe.id%>/edit"> Edit </a> <h3>
+<br>
+
+<form method="POST" action="/recipes/<%=@recipe.id%>/delete">
+  <input id="hidden" type="hidden" name="_method" value="DELETE"/>
+  <input type="submit" value="Delete"/>
+</form>
+
+
 <br>
 <h3> <a href="/recipes"> Back to all Recipes </a> <h3>

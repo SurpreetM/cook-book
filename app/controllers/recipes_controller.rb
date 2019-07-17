@@ -22,13 +22,13 @@ class RecipeController < ApplicationController
           redirect to "/recipes/new"
         else
           recipe = current_user.recipes.create(params)
-          redirect to "/recipe/#{recipe.id}"
+          redirect to "/recipes/#{recipe.id}"
         end
         redirect to "/login"
       end
     end
 
-    get "/recipe/:id" do
+    get "/recipes/:id" do
       if logged_in?
       @recipe = Recipe.find_by_id(params[:id])
       erb :"recipes/show"
@@ -37,7 +37,7 @@ class RecipeController < ApplicationController
       end
     end
 
-    get "/recipe/:id/edit" do
+    get "/recipes/:id/edit" do
       if !logged_in?
         redirect to "/login"
       else
@@ -49,6 +49,18 @@ class RecipeController < ApplicationController
         end
       end
     end
+
+    #this is not working
+    delete "/recipes/:id/delete" do
+      @recipe = Recipe.find_by_id(params[:id])
+      @recipe.delete
+      redirect to "/recipes"
+    end
+
+    post '/recipes/1/delete' do
+    "Hello World"
+    end
+
 
 
 end
