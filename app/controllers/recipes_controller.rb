@@ -38,14 +38,15 @@ class RecipeController < ApplicationController
     end
 
     get "/recipe/:id/edit" do
-      if logged_in?
+      if !logged_in?
+        redirect to "/login"
+      else
       @recipe = Recipe.find_by_id(params[:id])
         if current_user = @recipe.user
           erb :"recipes/edit"
         else
           redirect to "/recipes"
         end
-        redirect to "/login"
       end
     end
 
