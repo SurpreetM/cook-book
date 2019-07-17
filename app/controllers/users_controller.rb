@@ -6,8 +6,9 @@ class UserController < ApplicationController
 
 
   post "/signup" do
-    @user = User.create(params)
-    erb :"/recipes/recipes"
+    user = User.create(params)
+    session[:user_id] = user.id
+    redirect to "/recipes"
   end
 
   get "/login" do
@@ -15,9 +16,10 @@ class UserController < ApplicationController
   end
 
   post "/login" do
-    @user = User.find_by(:name => params[:name])
-    if @user && @user.authenticate(params[:password])
-      erb :"/recipes/recipes"
+    user = User.find_by(:name => params[:name])
+    if user && user.authenticate(params[:password])
+      session[:user_id] = user.id
+      redirect to "/recipes"
     else
       redirect to "/"
     end
