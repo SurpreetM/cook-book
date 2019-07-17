@@ -9,4 +9,15 @@
   <%end%>
 </ol>
 <br>
+
+<h2> Your Recipes </h2>
+<ol>
+<% current_user.recipes.each do |recipe| %>
+  <li><a href="/recipe/<%=recipe.id%>"><%= recipe.name %></a>
+  <%end%>
+</ol>
+<br>
+
 <a href="/recipes/new" >Add new recipe </a>
+<br>
+<a href ="/logout"> Logout </a>

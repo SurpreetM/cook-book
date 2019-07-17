@@ -1,4 +1,10 @@
-<h1> <%= @recipe.name %> </h2>
+<h1> <%= @recipe.name %> </h1>
 
+<h2> Ingredients </h2>
+<%= @recipe.ingredients %>
 
-<h3> <a href="/recipes"> Back to all Recipes </a> </h3>
+<h2> Instructions </h2>
+<%= @recipe.instructions %>
+
+<br>
+<h3> <a href="/recipes"> Back to all Recipes </a> <h3>

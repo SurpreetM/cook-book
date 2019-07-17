@@ -17,7 +17,7 @@ class RecipeController < ApplicationController
     end
 
     post "/recipes" do
-      recipe = Recipe.create(params)
+      recipe = current_user.recipes.create(params)
       redirect to "/recipe/#{recipe.id}"
     end
 
