@@ -1,2 +1,10 @@
 
-<h1> Hello <%= @user.name %> You are logged in </h1>
+<h1> Welcome <%= @user.name %> You are logged in </h1>
+
+
+<h2> All Recipes </h2>
+<ol>
+<% Recipe.all.each do |recipe| %>
+  <li><%= recipe.name %>
+  <%end%>
+</ol>
