@@ -7,9 +7,18 @@
 <br>
 
   <form action="/recipes" method="post">
-    <p> Recipe Name: <input type="text" name="name" required> </p>
-    <p> Ingredients: <input type="text" name="ingredients" required> </p>
-    <p> Instructions: <input type="text" name="instructions" required> </p>
+    <h3> Recipe Name: </h3>
+    <textarea name="name" rows="2" cols="80" required></textarea>
+
+    <h3>Ingredients: </h3>
+    <textarea name="ingredients" rows="10" cols="80" required></textarea>
+
+    <h3> Instructions: </h3>
+    <textarea name="instructions" rows="10" cols="80" required></textarea>
+
+    <br>
+    <br>
+
     <input type="submit" value="Save">
   </form>
 
