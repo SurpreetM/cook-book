@@ -23,27 +23,27 @@ class RecipeController < ApplicationController
           redirect to "/recipes/new"
         else
           recipe = current_user.recipes.create(name: params[:name].capitalize, ingredients: params[:ingredients], instructions: params[:instructions])
-          flash[:message] = "You have successfully added a new recipe."
-          redirect to "/recipes/#{recipe.id}"
+          flash[:message] = "You have successfully added this new recipe."
+          redirect to "/recipes/#{recipe.slug}"
         end
         redirect to "/login"
       end
     end
 
-    get "/recipes/:id" do
+    get "/recipes/:slug" do
       if logged_in?
-      @recipe = Recipe.find_by_id(params[:id])
+      @recipe = Recipe.find_by_slug(params[:slug])
       erb :"recipes/show"
       else
         redirect to "/login"
       end
     end
 
-    get "/recipes/:id/edit" do
+    get "/recipes/:slug/edit" do
       if !logged_in?
         redirect to "/login"
       else
-      @recipe = Recipe.find_by_id(params[:id])
+      @recipe = Recipe.find_by_slug(params[:slug])
         if current_user = @recipe.user
           erb :"recipes/edit"
         else
@@ -53,11 +53,11 @@ class RecipeController < ApplicationController
       end
     end
 
-    delete "/recipes/:id/delete" do
+    delete "/recipes/:slug/delete" do
       if !logged_in?
         redirect to "/login"
       else
-        @recipe = Recipe.find_by_id(params[:id])
+        @recipe = Recipe.find_by_slug(params[:slug])
         if current_user = @recipe.user
           flash[:message] = "You have deleted your #{@recipe.name} recipe."
           @recipe.delete
@@ -69,15 +69,15 @@ class RecipeController < ApplicationController
       end
     end
 
-    patch "/recipes/:id/edit" do
+    patch "/recipes/:slug/edit" do
       if !logged_in?
         redirect to "/login"
       else
         if params[:name] == "" || params[:ingredients] == "" || params[:instructions] == ""
           flash[:message] = "Please ensure all the fields are populated."
-          redirect to "/recipes/#{params[:id]}/edit"
+          redirect to "/recipes/#{params[:slug]}/edit"
         else
-        @recipe = Recipe.find_by_id(params[:id])
+        @recipe = Recipe.find_by_slug(params[:slug])
           if current_user = @recipe.user
             @recipe.update(name: params[:name].capitalize, ingredients: params[:ingredients], instructions: params[:instructions])
             flash[:message] = "You have updated your #{@recipe.name} recipe."
