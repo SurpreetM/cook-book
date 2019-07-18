@@ -1,3 +1,11 @@
-<h1> You can edit this <h1>
+<h1> Editing <%=@recipe.name%> <h1>
+
+  <form action="/recipes/<%=@recipe.id%>/edit" method="post">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <h3> Recipe Name: <input type="text" name="name" value="<%=@recipe.name%>">
+    <p> Ingredients: <input type="text" name="ingredients" value="<%=@recipe.ingredients%>"> </p>
+    <p> Instructions: <input type="text" name="instructions" value="<%=@recipe.instructions%>"> </p> </h3>
+    <input type="submit" value="Save">
+  </form>
 
 <h3> <a href="/recipes"> Back to all Recipes </a> </h3>

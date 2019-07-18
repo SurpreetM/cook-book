@@ -59,4 +59,20 @@ class RecipeController < ApplicationController
       redirect to "/recipes"
     end
 
+    patch "/recipes/:id/edit" do
+      if !logged_in?
+        redirect to "/login"
+      else
+        @recipe = Recipe.find_by_id(params[:id])
+        if current_user = @recipe.user
+          @recipe.update(name: params[:name], ingredients: params[:ingredients], instructions: params[:instructions])
+          flash[:message] = "You have updated your #{@recipe.name} recipe."
+          redirect to "/recipes"
+        else
+          flash[:message] = "Sorry you are not able to edit #{@recipe.name}."
+          redirect to "/recipes"
+        end
+      end
+    end
+
 end
