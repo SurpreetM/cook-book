@@ -19,9 +19,10 @@ class RecipeController < ApplicationController
     post "/recipes" do
       if logged_in?
         if params[:name] == "" || params[:ingredients] == "" || params[:instructions] == ""
+          flash[:message] = "Please ensure all the fields are populated."
           redirect to "/recipes/new"
         else
-          recipe = current_user.recipes.create(params)
+          recipe = current_user.recipes.create(name: params[:name].capitalize, ingredients: params[:ingredients], instructions: params[:instructions])
           flash[:message] = "You have successfully added a new recipe."
           redirect to "/recipes/#{recipe.id}"
         end
@@ -46,7 +47,7 @@ class RecipeController < ApplicationController
         if current_user = @recipe.user
           erb :"recipes/edit"
         else
-          flash[:message] = "Sorry you are not able to edit #{@recipe.name}."
+          flash[:message] = "Sorry can only edit your own recipes."
           redirect to "/recipes"
         end
       end
@@ -62,24 +63,29 @@ class RecipeController < ApplicationController
           @recipe.delete
           redirect to "/recipes"
         else
-          flash[:message] = "Sorry you are not able to delete #{@recipe.name}."
+          flash[:message] = "Sorry you can only delete your own recipes."
           redirect to "/recipes"
         end
-      end 
+      end
     end
 
     patch "/recipes/:id/edit" do
       if !logged_in?
         redirect to "/login"
       else
-        @recipe = Recipe.find_by_id(params[:id])
-        if current_user = @recipe.user
-          @recipe.update(name: params[:name], ingredients: params[:ingredients], instructions: params[:instructions])
-          flash[:message] = "You have updated your #{@recipe.name} recipe."
-          redirect to "/recipes"
+        if params[:name] == "" || params[:ingredients] == "" || params[:instructions] == ""
+          flash[:message] = "Please ensure all the fields are populated."
+          redirect to "/recipes/#{params[:id]}/edit"
         else
-          flash[:message] = "Sorry you are not able to edit #{@recipe.name}."
-          redirect to "/recipes"
+        @recipe = Recipe.find_by_id(params[:id])
+          if current_user = @recipe.user
+            @recipe.update(name: params[:name].capitalize, ingredients: params[:ingredients], instructions: params[:instructions])
+            flash[:message] = "You have updated your #{@recipe.name} recipe."
+            redirect to "/recipes"
+          else
+            flash[:message] = "Sorry can only edit your own recipes."
+            redirect to "/recipes"
+          end
         end
       end
     end

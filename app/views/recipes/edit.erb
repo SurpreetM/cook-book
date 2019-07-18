@@ -1,4 +1,8 @@
 <h1> Editing <%=@recipe.name%> </h1>
+<% if flash.has?(:message) %>
+  <h2> <%= flash[:message] %> </h2>
+<% end %>
+
 
 <br>
 <br>
