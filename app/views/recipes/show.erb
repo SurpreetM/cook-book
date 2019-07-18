@@ -1,3 +1,7 @@
+<% if flash.has?(:message) %>
+  <h2> <%= flash[:message] %> </h2>
+<% end %>
+
 <h1> <%= @recipe.name %> </h1>
 
 <h2> Ingredients </h2>

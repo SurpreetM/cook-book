@@ -22,6 +22,7 @@ class RecipeController < ApplicationController
           redirect to "/recipes/new"
         else
           recipe = current_user.recipes.create(params)
+          flash[:message] = "You have successfully added a new recipe."
           redirect to "/recipes/#{recipe.id}"
         end
         redirect to "/login"
@@ -45,6 +46,7 @@ class RecipeController < ApplicationController
         if current_user = @recipe.user
           erb :"recipes/edit"
         else
+          flash[:message] = "Sorry you are not able to edit #{@recipe.name}."
           redirect to "/recipes"
         end
       end
@@ -52,6 +54,7 @@ class RecipeController < ApplicationController
 
     delete "/recipes/:id/delete" do
       @recipe = Recipe.find_by_id(params[:id])
+      flash[:message] = "You have deleted your #{@recipe.name} recipe."
       @recipe.delete
       redirect to "/recipes"
     end
