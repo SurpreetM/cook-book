@@ -53,10 +53,19 @@ class RecipeController < ApplicationController
     end
 
     delete "/recipes/:id/delete" do
-      @recipe = Recipe.find_by_id(params[:id])
-      flash[:message] = "You have deleted your #{@recipe.name} recipe."
-      @recipe.delete
-      redirect to "/recipes"
+      if !logged_in?
+        redirect to "/login"
+      else
+        @recipe = Recipe.find_by_id(params[:id])
+        if current_user = @recipe.user
+          flash[:message] = "You have deleted your #{@recipe.name} recipe."
+          @recipe.delete
+          redirect to "/recipes"
+        else
+          flash[:message] = "Sorry you are not able to delete #{@recipe.name}."
+          redirect to "/recipes"
+        end
+      end 
     end
 
     patch "/recipes/:id/edit" do

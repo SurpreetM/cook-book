@@ -1,9 +1,12 @@
 
-<h1> Welcome <%= current_user.name %> </h1>
+<h1> Welcome to your Cookbook <%= current_user.name %>! </h1>
 
 <% if flash.has?(:message) %>
   <h2> <%= flash[:message] %> </h2>
 <% end %>
+
+<br>
+<br>
 
 <h2> All Recipes </h2>
 <ol>
@@ -11,6 +14,8 @@
   <li><a href="/recipes/<%=recipe.id%>"><%= recipe.name %></a>
   <%end%>
 </ol>
+
+<br>
 <br>
 
 <h2> Your Recipes </h2>
@@ -19,8 +24,14 @@
   <li><a href="/recipes/<%=recipe.id%>"><%= recipe.name %></a>
   <%end%>
 </ol>
+
+<br>
 <br>
 
-<a href="/recipes/new" >Add new recipe </a>
-<br>
-<a href ="/logout"> Logout </a>
+<form action="/recipes/new">
+    <input type="submit" value="Add new recipe" />
+</form>
+
+<form action="/logout">
+    <input type="submit" value="Logout" />
+</form>

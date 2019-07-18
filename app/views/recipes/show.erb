@@ -1,23 +1,32 @@
+<h1> <%= @recipe.name %> </h1>
 <% if flash.has?(:message) %>
   <h2> <%= flash[:message] %> </h2>
 <% end %>
 
-<h1> <%= @recipe.name %> </h1>
+<br>
+<br>
 
 <h2> Ingredients </h2>
 <%= @recipe.ingredients %>
+
+<br>
+<br>
 
 <h2> Instructions </h2>
 <%= @recipe.instructions %>
 
 <br>
-<h3> <a href="/recipes/<%=@recipe.id%>/edit"> Edit </a> <h3>
 <br>
 
+<form action="/recipes/<%=@recipe.id%>/edit">
+    <input type="submit" value="Edit">
+</form>
+
 <form method="POST" action="/recipes/<%=@recipe.id%>/delete">
-  <input id="hidden" type="hidden" name="_method" value="DELETE"/>
+  <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete"/>
 </form>
 
-<br>
-<h3> <a href="/recipes"> Back to all Recipes </a> <h3>
+<form action="/recipes">
+    <input type="submit" value="Back to all recipes">
+</form>
