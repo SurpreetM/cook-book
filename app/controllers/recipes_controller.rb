@@ -18,14 +18,15 @@ class RecipeController < ApplicationController
 
     post "/recipes" do
       if logged_in?
-        if params[:name] == "" || params[:ingredients] == "" || params[:instructions] == ""
-          flash[:message] = "Please ensure all the fields are populated."
-          redirect to "/recipes/new"
-        else
+        #if params[:name] == "" || params[:ingredients] == "" || params[:instructions] == ""
+        #  flash[:message] = "Please ensure all the fields are populated."
+        #  redirect to "/recipes/new"
+        #else
           recipe = current_user.recipes.create(name: params[:name].capitalize, ingredients: params[:ingredients], instructions: params[:instructions])
           flash[:message] = "You have successfully added this new recipe."
           redirect to "/recipes/#{recipe.slug}"
-        end
+        #end
+      else
         redirect to "/login"
       end
     end
@@ -73,10 +74,10 @@ class RecipeController < ApplicationController
     patch "/recipes/:slug/edit" do
       if !logged_in?
         redirect to "/login"
-      else
-        if params[:name] == "" || params[:ingredients] == "" || params[:instructions] == ""
-          flash[:message] = "Please ensure all the fields are populated."
-          redirect to "/recipes/#{params[:slug]}/edit"
+      #else
+      #  if params[:name] == "" || params[:ingredients] == "" || params[:instructions] == ""
+      #    flash[:message] = "Please ensure all the fields are populated."
+      #    redirect to "/recipes/#{params[:slug]}/edit"
         else
         @recipe = Recipe.find_by_slug(params[:slug])
           if current_user == @recipe.user
@@ -88,7 +89,7 @@ class RecipeController < ApplicationController
             redirect to "/recipes"
           end
         end
-      end
+      #end
     end
 
 end

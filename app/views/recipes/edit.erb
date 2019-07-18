@@ -9,9 +9,9 @@
 
   <form action="/recipes/<%=@recipe.slug%>/edit" method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
-    <p> Recipe Name: <input type="text" name="name" value="<%=@recipe.name%>"> </p>
-    <p> Ingredients: <input type="text" name="ingredients" value="<%=@recipe.ingredients%>"> </p>
-    <p> Instructions: <input type="text" name="instructions" value="<%=@recipe.instructions%>"> </p>
+    <p> Recipe Name: <input type="text" name="name" value="<%=@recipe.name%>" required> </p>
+    <p> Ingredients: <input type="text" name="ingredients" value="<%=@recipe.ingredients%>" required> </p>
+    <p> Instructions: <input type="text" name="instructions" value="<%=@recipe.instructions%>" required> </p>
     <input type="submit" value="Save">
   </form>
 
