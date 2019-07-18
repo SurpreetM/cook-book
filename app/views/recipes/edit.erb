@@ -1,11 +1,18 @@
-<h1> Editing <%=@recipe.name%> <h1>
+<h1> Editing <%=@recipe.name%> </h1>
+
+<br>
+<br>
 
   <form action="/recipes/<%=@recipe.id%>/edit" method="post">
     <input id="hidden" type="hidden" name="_method" value="patch">
-    <h3> Recipe Name: <input type="text" name="name" value="<%=@recipe.name%>">
+    <p> Recipe Name: <input type="text" name="name" value="<%=@recipe.name%>"> </p>
     <p> Ingredients: <input type="text" name="ingredients" value="<%=@recipe.ingredients%>"> </p>
-    <p> Instructions: <input type="text" name="instructions" value="<%=@recipe.instructions%>"> </p> </h3>
+    <p> Instructions: <input type="text" name="instructions" value="<%=@recipe.instructions%>"> </p>
     <input type="submit" value="Save">
   </form>
 
-<h3> <a href="/recipes"> Back to all Recipes </a> </h3>
+<br>
+
+  <form action="/recipes">
+      <input type="submit" value="< Back to all recipes">
+  </form>

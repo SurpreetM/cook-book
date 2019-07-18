@@ -22,11 +22,15 @@
     <input type="submit" value="Edit">
 </form>
 
+<br>
+
 <form method="POST" action="/recipes/<%=@recipe.id%>/delete">
   <input id="hidden" type="hidden" name="_method" value="delete">
   <input type="submit" value="Delete"/>
 </form>
 
+<br>
+
 <form action="/recipes">
-    <input type="submit" value="Back to all recipes">
+    <input type="submit" value="< Back to all recipes">
 </form>
