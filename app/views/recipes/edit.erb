@@ -7,13 +7,23 @@
 <br>
 <br>
 
-  <form action="/recipes/<%=@recipe.slug%>/edit" method="post">
-    <input id="hidden" type="hidden" name="_method" value="patch">
-    <p> Recipe Name: <input type="text" name="name" value="<%=@recipe.name%>" required> </p>
-    <p> Ingredients: <input type="text" name="ingredients" value="<%=@recipe.ingredients%>" required> </p>
-    <p> Instructions: <input type="text" name="instructions" value="<%=@recipe.instructions%>" required> </p>
-    <input type="submit" value="Save">
-  </form>
+<form action="/recipes/<%=@recipe.slug%>/edit" method="post">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+  <h3> Recipe Name: </h3>
+  <textarea name="name" rows="2" cols="80" required><%=@recipe.name%></textarea>
+
+  <h3>Ingredients: </h3>
+  <textarea name="ingredients" rows="10" cols="80" required><%=@recipe.ingredients%></textarea>
+
+  <h3> Instructions: </h3>
+  <textarea name="instructions" rows="10" cols="80" required><%=@recipe.instructions%></textarea>
+
+  <br>
+  <br>
+
+  <input type="submit" value="Save">
+</form>
 
 <br>
 
