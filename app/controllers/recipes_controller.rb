@@ -33,6 +33,7 @@ class RecipeController < ApplicationController
     get "/recipes/:slug" do
       if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
+
       erb :"recipes/show"
       else
         redirect to "/login"
@@ -44,7 +45,7 @@ class RecipeController < ApplicationController
         redirect to "/login"
       else
       @recipe = Recipe.find_by_slug(params[:slug])
-        if current_user = @recipe.user
+        if current_user == @recipe.user
           erb :"recipes/edit"
         else
           flash[:message] = "Sorry can only edit your own recipes."
@@ -58,7 +59,7 @@ class RecipeController < ApplicationController
         redirect to "/login"
       else
         @recipe = Recipe.find_by_slug(params[:slug])
-        if current_user = @recipe.user
+        if current_user == @recipe.user
           flash[:message] = "You have deleted your #{@recipe.name} recipe."
           @recipe.delete
           redirect to "/recipes"
@@ -78,7 +79,7 @@ class RecipeController < ApplicationController
           redirect to "/recipes/#{params[:slug]}/edit"
         else
         @recipe = Recipe.find_by_slug(params[:slug])
-          if current_user = @recipe.user
+          if current_user == @recipe.user
             @recipe.update(name: params[:name].capitalize, ingredients: params[:ingredients], instructions: params[:instructions])
             flash[:message] = "You have updated your #{@recipe.name} recipe."
             redirect to "/recipes"
