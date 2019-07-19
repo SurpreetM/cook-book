@@ -34,7 +34,6 @@ class RecipeController < ApplicationController
     get "/recipes/:slug" do
       if logged_in?
       @recipe = Recipe.find_by_slug(params[:slug])
-
       erb :"recipes/show"
       else
         redirect to "/login"
@@ -50,7 +49,7 @@ class RecipeController < ApplicationController
           erb :"recipes/edit"
         else
           flash[:message] = "Sorry can only edit your own recipes."
-          redirect to "/recipes"
+          redirect to "/recipes/#{@recipe.slug}"
         end
       end
     end
@@ -59,10 +58,10 @@ class RecipeController < ApplicationController
       if !logged_in?
         redirect to "/login"
       else
-        @recipe = Recipe.find_by_slug(params[:slug])
-        if current_user == @recipe.user
-          flash[:message] = "You have deleted your #{@recipe.name} recipe."
-          @recipe.delete
+        recipe = Recipe.find_by_slug(params[:slug])
+        if current_user == recipe.user
+          flash[:message] = "You have deleted your #{recipe.name} recipe."
+          recipe.delete
           redirect to "/recipes"
         else
           flash[:message] = "Sorry you can only delete your own recipes."
@@ -79,14 +78,14 @@ class RecipeController < ApplicationController
       #    flash[:message] = "Please ensure all the fields are populated."
       #    redirect to "/recipes/#{params[:slug]}/edit"
         else
-        @recipe = Recipe.find_by_slug(params[:slug])
-          if current_user == @recipe.user
-            @recipe.update(name: params[:name].capitalize, ingredients: params[:ingredients], instructions: params[:instructions])
-            flash[:message] = "You have updated your #{@recipe.name} recipe."
-            redirect to "/recipes"
+        recipe = Recipe.find_by_slug(params[:slug])
+          if current_user == recipe.user
+            recipe.update(name: params[:name].capitalize, ingredients: params[:ingredients], instructions: params[:instructions])
+            flash[:message] = "You have updated your #{recipe.name} recipe."
+            redirect to "/recipes/#{recipe.slug}"
           else
             flash[:message] = "Sorry can only edit your own recipes."
-            redirect to "/recipes"
+            redirect to "/recipes/#{recipe.slug}"
           end
         end
       #end
