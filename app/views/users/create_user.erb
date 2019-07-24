@@ -1,14 +1,17 @@
 <h1> Welcome to CookBook! </h1>
+<% if flash.has?(:message) %>
+  <h2> <%= flash[:message] %> </h2>
+<% end %>
 
 <br>
 <br>
 
 <h2> Please Sign up below </h2>
 
-<form action="/signup" method="post">
-  Name <input type="text" name="name" required>
-  Email <input type="text" name="email" required>
-  Password <input type="password" name="password" required>
+<form action="/signup" method="post" required>
+  Name <input type="text" name="name" required >
+  Email <input type="text" name="email" required >
+  Password <input type="password" name="password" >
   <input type="submit" value="Signup">
 </form>
 
