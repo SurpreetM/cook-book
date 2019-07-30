@@ -9,15 +9,13 @@ class UserController < ApplicationController
     if params[:name] == "" || params[:email] == "" || params[:password] == ""
       flash[:message] = "Please ensure all the fields are populated."
       erb :"users/create_user"
-    else
-      if User.find_by(:email => params[:email])
+    elsif User.find_by(:email => params[:email])
         flash[:message] = "You already have an account"
         erb :"users/login"
-      else
+    else
         user = User.create(params)
         session[:user_id] = user.id
         redirect to "/recipes"
-      end
     end
   end
 
